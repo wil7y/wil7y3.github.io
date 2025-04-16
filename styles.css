@@ -1,0 +1,230 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
+    background-color: #f4f4f4;
+    color: #333;
+    padding-top: 20px; /* Ajoutez un padding supérieur pour éviter que le contenu ne soit masqué par la barre de navigation */
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: auto;
+    padding: 20px;
+}
+
+header {
+    background: linear-gradient(135deg, #0072B8, #00BFFF);
+    color: #fff;
+    padding: 15px 0; /* Réduire le padding pour une barre plus fine */
+    text-align: center;
+    border-radius: 8px; /* Coins arrondis */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* Ombre pour l'effet de profondeur */
+    margin-bottom: 20px; /* Espace sous la barre de navigation */
+}
+
+header h1 {
+    font-size: 2.5em;
+    margin-bottom: 10px;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+}
+
+nav ul li {
+    display: inline;
+    margin: 0 15px;
+}
+
+nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s, transform 0.3s;
+    position: relative;
+}
+
+nav ul li a:hover {
+    color: #ffcc00;
+    transform: scale(1.1); /* Agrandir légèrement */
+}
+
+nav ul li a::after {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 2px;
+    background: #ffcc00; /* Couleur de la ligne de soulignement */
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+    position: absolute;
+    bottom: -5px; /* Positionner la ligne sous le texte */
+    left: 0;
+}
+
+nav ul li a:hover::after {
+    transform: scaleX(1); /* Animer la ligne de soulignement */
+}
+
+main {
+    padding: 20px;
+}
+
+section {
+    background: #fff;
+    margin: 20px 0;
+    padding: 20px;
+    border-radius: 10px; /* Coins arrondis */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* Ombre pour l'effet de profondeur */
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+section:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 30px rgba(0, 0, 0, 0.3); /* Ombre plus prononcée au survol */
+}
+
+h2 {
+    color: #0072B8;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #0072B8;
+    padding-bottom: 5px;
+    transition: color 0.3s;
+}
+
+h2:hover {
+    color: #ffcc00; /* Changer la couleur au survol */
+}
+
+.card {
+    background: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 10px; /* Coins arrondis */
+    padding: 15px;
+    margin: 10px 0;
+    transition: transform 0.3s, box-shadow 0.3s;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* Ombre pour l'effet de profondeur */
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 30px rgba(0, 0, 0, 0.3); /* Ombre plus prononcée au survol */
+}
+
+.card img {
+    width: 100%;
+    max-width: 300px;
+    height: auto;
+    border-radius: 10px; /* Coins arrondis */
+    transition: transform 0.3s;
+}
+
+.card:hover img {
+    transform: scale(1.05);
+}
+
+.btn {
+    display: inline-block;
+    padding: 10px 15px;
+    margin-top: 10px;
+    background: #0072B8;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background 0.3s, transform 0.3s;
+}
+
+.btn:hover {
+    background: #005f8c;
+    transform: scale(1.05);
+}
+
+footer {
+    text-align: center;
+    padding: 10px 0;
+    background: #333;
+    color: #fff;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+}
+
+.advice-section {
+    background: #e0f7fa; /* Couleur pour la section conseils */
+    padding: 15px;
+    border-radius: 10px; /* Coins arrondis */
+    margin: 10px 0;
+}
+
+.error-section {
+    background: #ffebee; /* Couleur pour la section erreurs */
+    padding: 15px;
+    border-radius: 10px; /* Coins arrondis */
+    margin: 10px 0;
+}
+
+.further-section {
+    background: #f1f8e9; /* Couleur pour la section pour aller plus loin */
+    padding: 15px;
+    border-radius: 10px; /* Coins arrondis */
+    margin: 10px 0;
+}
+
+.remark-section {
+    background: #fff3e0; /* Couleur pour la section remarques personnelles */
+    padding: 15px;
+    border-radius: 10px; /* Coins arrondis */
+    margin: 10px 0;
+}
+
+.advice, .error, .further {
+    margin: 10px 0;
+}
+
+.advice h3, .error h3, .further h3 {
+    color: #0072B8; /* Couleur des titres des conseils, erreurs et suggestions */
+    margin-bottom: 5px;
+}
+
+.advice p, .error p, .further p, .remark-section p {
+    margin: 0; /* Supprime les marges par défaut */
+    line-height: 1.5; /* Espacement des lignes pour une meilleure lisibilité */
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 600px) {
+    nav ul li {
+        display: block;
+        margin: 10px 0;
+    }
+}
