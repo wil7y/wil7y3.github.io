@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Projets - Site Educatif Arduino</title>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Projets Arduino</h1>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Accueil</a></li>
+                    <li><a href="tutoriel.html">Tutoriels</a></li>
+                    <li><a href="projet.html">Projets</a></li>
+                    <li><a href="erreurs.html">Erreurs Courantes</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    
+    <main>
+        <!--Projet1-->
+        <article class="projet-article"><br>
+            <h1><b>Station météo avec capteur DHT11</b></h1>
+            <p class="intro">Affiche température et humidité sur un écran LCD. 
+            </p>
+
+            <section class="tutorial" id="météo">
+                <h3>Matériels</h3>
+                <ul>
+                    <li>Arduino Uno</li>
+                    <li>Capteur DHT11</li>
+                    <li>Écran LCD 16x2 + module I2C</li>
+                    <li>Câbles Dupont</li>
+                    <li>Bibliothèques : DHT, LiquidCrystal_I2C</li>
+                </ul>
+            </section>
+
+            <section>
+                <h3>
+                    Schéma de câblage
+                </h3>
+                <img src="meteo-lcd.jpg" alt="Schéma de câblage feu tricolore">
+            </section>
+
+            <section>
+                <h3>Code</h3>
+                <pre><code>
+                        #include <DHT.h>
+                        #include <Wire.h>
+                        #include <LiquidCrystal_I2C.h>
+                            
+                        #define DHTPIN 2
+                        #define DHTTYPE DHT11
+                        
+                        DHT dht(DHTPIN, DHTTYPE);
+                        LiquidCrystal_I2C lcd(0x27, 16, 2);
+                        
+                        void setup() {
+                          lcd.begin();
+                          lcd.backlight();
+                          dht.begin();
+                        }
+                        
+                        void loop() {
+                          float t = dht.readTemperature();
+                          float h = dht.readHumidity();
+                          lcd.setCursor(0,0);
+                          lcd.print("Temp: " + String(t) + " C");
+                          lcd.setCursor(0,1);
+                          lcd.print("Hum: " + String(h) + " %");
+                          delay(2000);
+                        }
+                        
+                </code></pre>
+            </section>
+            <section>
+                <h3>
+                    Erreurs fréquentes :
+                </h3>
+                <p><b>
+                    LCD qui ne s’allume pas → Vérifie l’adresse I2C (utilise un scanner I2C)
+
+                    <br>Valeurs nan → Capteur mal branché ou mauvais type DHT
+                </b>
+                    </p>
+            </section>
+        </article>
+
+        <!--projet2-->
+        <article class="projet-article"><br>
+            <h1><b>Détecteur de mouvement avec alarme</b></h1>
+            <p class="intro">Déclenche un buzzer lorsqu’un mouvement est détecté. 
+            </p>
+
+            <section id="alarme">
+                <h3>Matériels</h3>
+                <ul>
+                    <li>Arduino Uno</li>
+                    <li>Capteur PIR HC-SR501</li>
+                    <li>Buzzer</li>
+                    <li>Résistance 220Ω</li>
+                </ul>
+            </section>
+
+            <section>
+                <h3>
+                    Schéma de câblage
+                </h3>
+                <img src="Arduino-PIR-copie.webp" alt="Schéma de câblage feu tricolore">
+            </section>
+
+            <section>
+                <h3>Code</h3>
+                <pre><code>
+                    int pirPin = 2;
+                    int buzzer = 3;
+
+                    void setup() {
+                        pinMode(pirPin, INPUT);
+                        pinMode(buzzer, OUTPUT);
+                    }
+
+                    void loop() {
+                        if (digitalRead(pirPin) == HIGH) {
+                            digitalWrite(buzzer, HIGH);
+                            delay(1000);
+                        } else {
+                            digitalWrite(buzzer, LOW);
+                        }
+                    }
+
+                </code></pre>
+            </section>
+            <section>
+                <h3>
+                    Erreurs fréquentes :
+                </h3>
+                <p><b>
+                    Buzzer reste actif : ajouter delay et vérifier polarité PIR
+                </b>
+                    </p>
+            </section>
+        </article>
+
+        <!--projet3-->
+        <article class="projet-article"><br>
+            <h1><b>Radar à ultrasons</b></h1>
+            <p class="intro"> Un servo tourne avec un capteur HC-SR04 et affiche les distances.  
+            </p>
+
+            <section id="ultrasons">
+                <h3>Matériels</h3>
+                <ul>
+                    <li>Arduino Uno</li>
+                    <li>HC-SR04</li>
+                    <li>Servo moteur SG90</li>
+                    <li>Bibliothèque: Servo.h</li>
+                </ul>
+            </section>
+
+            <section>
+                <h3>
+                    Schéma de câblage
+                </h3>
+                <img src="hcsr-led.jpg" alt="Schéma de câblage feu tricolore">
+            </section>
+
+            <section>
+                <h3>Code</h3>
+                <pre><code>
+                    #include <Servo.h>
+                        Servo servo;
+                        
+                        const int trigPin = 9;
+                        const int echoPin = 10;
+                        
+                        void setup() {
+                          servo.attach(3);
+                          Serial.begin(9600);
+                          pinMode(trigPin, OUTPUT);
+                          pinMode(echoPin, INPUT);
+                        }
+                        
+                        void loop() {
+                          for (int pos = 0; pos <= 180; pos += 15) {
+                            servo.write(pos);
+                            delay(300);
+                            long duration, distance;
+                            digitalWrite(trigPin, LOW);
+                            delayMicroseconds(2);
+                            digitalWrite(trigPin, HIGH);
+                            delayMicroseconds(10);
+                            digitalWrite(trigPin, LOW);
+                            duration = pulseIn(echoPin, HIGH);
+                            distance = duration * 0.034 / 2;
+                            Serial.print("Angle: "); Serial.print(pos);
+                            Serial.print(" | Distance: "); Serial.println(distance);
+                          }
+                        }
+                        
+
+                </code></pre>
+            </section>
+            <section>
+                <h3>
+                    Erreurs fréquentes :
+                </h3>
+                <p><b>
+                    Distance = 0 → vérifie le branchement<br>
+                    Servo tremble → ajouter condensateur 100μF en alimentation
+
+                </b>
+                    </p>
+            </section>
+        </article>
+
+        <!--Projet4-->
+        <article class="projet-article"><br>
+            <h1><b>Contrôle de LED RGB via Bluetooth</b></h1>
+            <p class="intro">Contrôle la couleur d’une LED RGB avec une appli Bluetooth. 
+            </p>
+
+            <section id="Bluetooth">
+                <h3>Matériels</h3>
+                <ul>
+                    <li>Arduino Uno</li>
+                    <li>LED RGB (cathode commune)</li>
+                    <li>Résistances 220Ω</li>
+                    <li>Module HC-05</li>
+                    <li>Smartphone avec appli Bluetooth (ex: Serial Bluetooth Terminal)</li>
+                </ul>
+            </section>
+
+            <section>
+                <h3>
+                    Schéma de câblage
+                </h3>
+                <img src="arduino-led-ble-wiring-diagram.webp" alt="Schéma de câblage feu tricolore">
+            </section>
+
+            <section>
+                <h3>Code</h3>
+                <pre><code>
+                    char c;
+                    int redPin = 9, greenPin = 10, bluePin = 11;
+                    
+                    void setup() {
+                      Serial.begin(9600);
+                      pinMode(redPin, OUTPUT);
+                      pinMode(greenPin, OUTPUT);
+                      pinMode(bluePin, OUTPUT);
+                    }
+                    
+                    void loop() {
+                      if (Serial.available()) {
+                        c = Serial.read();
+                        if (c == 'r') {
+                          analogWrite(redPin, 255); analogWrite(greenPin, 0); analogWrite(bluePin, 0);
+                        } else if (c == 'g') {
+                          analogWrite(redPin, 0); analogWrite(greenPin, 255); analogWrite(bluePin, 0);
+                        } else if (c == 'b') {
+                          analogWrite(redPin, 0); analogWrite(greenPin, 0); analogWrite(bluePin, 255);
+                        }
+                      }
+                    }
+                    
+                        
+                </code></pre>
+            </section>
+            <section>
+                <h3>
+                    Erreurs fréquentes :
+                </h3>
+                <p><b>
+                    HC-05 non reconnu → appairage nécessaire (code 1234)
+
+                    <br>RX du module : toujours utiliser diviseur de tension pour 3.3V
+
+                    </p>
+            </section>
+        </article>
+
+        <!--Projet5-->
+        <article class="projet-article"><br>
+            <h1><b>Mesure du niveau d’eau</b></h1>
+            <p class="intro">Affiche la distance entre l’eau et le capteur avec HC-SR04. 
+            </p>
+
+            <section id="eau">
+                <h3>Matériels</h3>
+                <ul>
+                    <li>Arduino Uno</li>
+                    <li>Capteur HC-SR04</li>
+                    <li>Écran LCD 16x2 I2C</li>
+                    <li>Bibliothèques : LiquidCrystal_I2C</li>
+                </ul>
+            </section>
+
+            <section>
+                <h3>
+                    Schéma de câblage
+                </h3>
+                <img src="OPENSE045a.jpg" alt="Schéma de câblage feu tricolore">
+            </section>
+
+            <section>
+                <h3>Code</h3>
+                <pre><code>
+                    #include <LiquidCrystal_I2C.h>
+                        LiquidCrystal_I2C lcd(0x27, 16, 2);
+                        
+                        #define trig 7
+                        #define echo 6
+                        
+                        void setup() {
+                          lcd.begin();
+                          lcd.backlight();
+                          pinMode(trig, OUTPUT);
+                          pinMode(echo, INPUT);
+                        }
+                        
+                        void loop() {
+                          digitalWrite(trig, LOW);
+                          delayMicroseconds(2);
+                          digitalWrite(trig, HIGH);
+                          delayMicroseconds(10);
+                          digitalWrite(trig, LOW);
+                          long duration = pulseIn(echo, HIGH);
+                          float distance = duration * 0.034 / 2;
+                          lcd.setCursor(0,0);
+                          lcd.print("Distance: " + String(distance) + " cm");
+                          delay(1000);
+                        }
+                        
+                </code></pre>
+            </section>
+            <section>
+                <h3>
+                    Erreurs fréquentes :
+                </h3>
+                <p><b>
+                    "0 cm" → mauvaise orientation ou obstruction du capteur
+                </b>
+                    </p>
+            </section>
+        </article>
+
+         <!--Projet6-->
+         <article class="projet-article"><br>
+            <h1><b>Suivi de lumière avec LDR</b></h1>
+            <p class="intro">Déplace un servo en fonction de la lumière. 
+            </p>
+
+            <section id="lumière">
+                <h3>Matériels</h3>
+                <ul>
+                    <li>Arduino Uno</li>
+                    <li>2 LDRs + résistances 10kΩ</li>
+                    <li>Servo SG90</li>
+                    <li>Bibliothèques : Servo.h</li>
+                </ul>
+            </section>
+
+            <section>
+                <h3>
+                    Schéma de câblage
+                </h3>
+                <img src="diagram_ldr_JLxgwB3t14.png" alt="Schéma de câblage feu tricolore">
+            </section>
+
+            <section>
+                <h3>Code</h3>
+                <pre><code>
+                    #include <Servo.h>
+                        Servo servo;
+                        
+                        void setup() {
+                          servo.attach(9);
+                        }
+                        
+                        void loop() {
+                          int ldr1 = analogRead(A0);
+                          int ldr2 = analogRead(A1);
+                          if (ldr1 > ldr2 + 50) servo.write(0);
+                          else if (ldr2 > ldr1 + 50) servo.write(180);
+                          else servo.write(90);
+                          delay(500);
+                        }
+                        
+                        
+                </code></pre>
+            </section>
+            <section>
+                <h3>
+                    Erreurs fréquentes :
+                </h3>
+                <p><b>
+                    Servo qui vibre → alimentation externe recommandée
+
+                    <br>LDR mal calibrées → ajuster seuil +50
+                    
+                </b>
+                    </p>
+            </section>
+        </article>
+
+
+         <!--Projet7-->
+         <article class="projet-article"><br>
+            <h1><b>Serrure RFID</b></h1>
+            <p class="intro">Active un relais si badge RFID reconnu. 
+            </p>
+
+            <section id="serrure">
+                <h3>Matériels</h3>
+                <ul>
+                    <li>Arduino Uno</li>
+                    <li>Lecteur RFID RC522</li>
+                    <li>Relais</li>
+                    <li>LED + résistance</li>
+                    <li>Badge RFID</li>
+                    <li>Bibliothèque MFRC522</li>
+                </ul>
+            </section>
+
+            <section>
+                <h3>
+                    Schéma de câblage
+                </h3>
+                <img src="54a8e233a885eeaf0c9bc86a72052e2f9c3f9dcb.jpeg" alt="Schéma de câblage feu tricolore">
+            </section>
+
+            <section>
+                <h3>Code</h3>
+                <pre><code>
+                    #include <SPI.h>
+                        #include <MFRC522.h>
+                        
+                        #define RST_PIN 9
+                        #define SS_PIN 10
+                        MFRC522 mfrc522(SS_PIN, RST_PIN);
+                        
+                        void setup() {
+                          SPI.begin();
+                          mfrc522.PCD_Init();
+                          pinMode(8, OUTPUT); // Relais
+                        }
+                        
+                        void loop() {
+                          if (!mfrc522.PICC_IsNewCardPresent()) return;
+                          if (!mfrc522.PICC_ReadCardSerial()) return;
+                        
+                          String id = "";
+                          for (byte i = 0; i < mfrc522.uid.size; i++) {
+                            id += String(mfrc522.uid.uidByte[i], HEX);
+                          }
+                        
+                          if (id == "a1b2c3d4") {
+                            digitalWrite(8, HIGH);
+                            delay(3000);
+                            digitalWrite(8, LOW);
+                          }
+                        }
+                        
+                        
+                </code></pre>
+            </section>
+            <section>
+                <h3>
+                    Erreurs fréquentes :
+                </h3>
+                <p><b>
+                    Carte non lue → vérifier branchement SPI et alimentation 3.3V
+
+                    <br>UID différent → lire UID avec sketch exemple DumpInfo
+
+                </b>
+                    </p>
+            </section>
+        </article>
+        
+         <!--Projet8-->
+         <article class="projet-article"><br>
+            <h1><b>Mini feu de circulation</b></h1>
+            <p class="intro">Simule un feu tricolore avec LEDs.
+            </p>
+
+            <section id="feu">
+                <h3>Matériels</h3>
+                <ul>
+                    <li>Arduino Uno</li>
+                    <li>LEDs : rouge, jaune, verte</li>
+                    <li>Résistances 220Ω</li>
+                    <li>Breadboard</li>
+                </ul>
+            </section>
+
+            <section>
+                <h3>
+                    Schéma de câblage
+                </h3>
+                <img src="feu-circulation-arduino-1.png" alt="Schéma de câblage feu tricolore">
+            </section>
+
+            <section>
+                <h3>Code</h3>
+                <pre><code>
+                    void setup() {
+                        pinMode(2, OUTPUT);
+                        pinMode(3, OUTPUT);
+                        pinMode(4, OUTPUT);
+                      }
+                      
+                      void loop() {
+                        digitalWrite(2, HIGH); // Rouge
+                        delay(5000);
+                        digitalWrite(2, LOW);
+                        
+                        digitalWrite(3, HIGH); // Jaune
+                        delay(2000);
+                        digitalWrite(3, LOW);
+                      
+                        digitalWrite(4, HIGH); // Vert
+                        delay(5000);
+                        digitalWrite(4, LOW);
+                      }
+                      
+                        
+                </code></pre>
+            </section>
+            <section>
+                <h3>
+                    Erreurs fréquentes :
+                </h3>
+                <p><b>
+                    LED faible : vérifier polarité et résistance
+                </b>
+                    </p>
+            </section>
+        </article>
+
+
+         <!--Projet8-->
+         <article class="projet-article"><br>
+            <h1><b>Afficheur matriciel message défilant</b></h1>
+            <p class="intro">Affiche un texte défilant avec matrice 8x8. 
+            </p>
+
+            <section id="message">
+                <h3>Matériels</h3>
+                <ul>
+                    <li>Arduino Uno</li>
+                    <li>Module MAX7219</li>
+                    <li>Câbles Dupont</li>
+                    <li>
+                        Bibliothèques : LedControl ou MD_Parola, MD_MAX72xx
+                        </li>
+                </ul>
+            </section>
+
+            <section>
+                <h3>
+                    Schéma de câblage
+                </h3>
+                <img src="schema-raccordement-matrice-led-max7219-arduino-uno.jpg" alt="Schéma de câblage feu tricolore">
+            </section>
+
+            <section>
+                <h3>Code</h3>
+                <pre><code>
+                    #include <MD_Parola.h>
+                        #include <MD_MAX72xx.h>
+                        #include <SPI.h>
+                        
+                        #define HARDWARE_TYPE MD_MAX72XX::FC16_HW
+                        #define MAX_DEVICES 4
+                        #define CS_PIN 10
+                        
+                        MD_Parola afficheur = MD_Parola(HARDWARE_TYPE, CS_PIN, MAX_DEVICES);
+                        
+                        void setup() {
+                          afficheur.begin();
+                          afficheur.setSpeed(50);
+                          afficheur.displayText("Bonjour !", PA_CENTER, 50, 1000, PA_SCROLL_LEFT, PA_SCROLL_LEFT);
+                        }
+                        
+                        void loop() {
+                          afficheur.displayAnimate();
+                        }
+                        
+                        
+                </code></pre>
+            </section>
+            <section>
+                <h3>
+                    Erreurs fréquentes :
+                </h3>
+                <p><b>
+                    Afficheur ne s’allume pas : vérifier nombre de modules et câblage SPI
+                </b>
+                    </p>
+            </section>
+        </article>
+
+
+         <!--Projet9-->
+         <article class="projet-article"><br>
+            <h1><b>Commande vocale (module Elechouse V3)</b></h1>
+            <p class="intro">Allume une LED avec commande vocale. 
+            </p>
+
+            <section id="vocale">
+                <h3>Matériels</h3>
+                <ul>
+                    <li>Arduino Uno</li>
+                    <li>
+                        Module Voice Recognition V3
+                        </li>
+                    <li>LED + résistance</li>
+                    <li>Bibliothèque VoiceRecognitionV3</li>
+                </ul>
+            </section>
+
+            <section>
+                <h3>
+                    Schéma de câblage
+                </h3>
+                <img src="images (4).jpeg" alt="Schéma de câblage feu tricolore">
+            </section>
+
+            <section>
+                <h3>Code</h3>
+                <pre><code>
+                    
+                #include <SoftwareSerial.h>
+                #include "VoiceRecognitionV3.h"
+                
+                SoftwareSerial mySerial(2, 3);
+                VR myVR(mySerial);
+                
+                uint8_t records[7];
+                uint8_t buf[64];
+                
+                #define LED 13
+                
+                void setup() {
+                mySerial.begin(9600);
+                Serial.begin(9600);
+                myVR.begin();
+                myVR.load((uint8_t)0, records, 7);
+                pinMode(LED, OUTPUT);
+                }
+                
+                void loop() {
+                if (myVR.recognize(buf, 50) > 0) {
+                    if (buf[1] == 0x01) digitalWrite(LED, HIGH);
+                    else if (buf[1] == 0x02) digitalWrite(LED, LOW);
+                }
+                }
+                
+                        
+                </code></pre>
+            </section>
+            <section>
+                <h3>
+                    Erreurs fréquentes :
+                </h3>
+                <p><b>
+                    Module ne répond pas → vérifier alimentation dédiée 5V stable
+                </b>
+                    </p>
+            </section>
+        </article>
+
+
+         <!--Projet10-->
+         <article class="projet-article"><br>
+            <h1><b>Robot éviteur d’obstacles</b></h1>
+            <p class="intro">Le robot évite automatiquement les objets. 
+            </p>
+
+            <section>
+                <h3>Matériels</h3>
+                <ul>
+                    <li>Arduino Uno</li>
+                    <li>2 moteurs DC</li>
+                    <li>L298N</li>
+                    <li>HC-SR04</li>
+                    <li>Batterie 9V ou pack Li-Ion</li>
+                </ul>
+            </section>
+
+            <section>
+                <h3>
+                    Schéma de câblage
+                </h3>
+                <img src="voiture-arduino-obstacles.jpg" alt="Schéma de câblage feu tricolore">
+            </section>
+
+            <section>
+                <h3>Code</h3>
+                <pre><code>
+                    #define trig 9
+                    #define echo 8
+                    #define IN1 5
+                    #define IN2 6
+                    
+                    void setup() {
+                      pinMode(trig, OUTPUT); pinMode(echo, INPUT);
+                      pinMode(IN1, OUTPUT); pinMode(IN2, OUTPUT);
+                    }
+                    
+                    void loop() {
+                      digitalWrite(trig, LOW);
+                      delayMicroseconds(2);
+                      digitalWrite(trig, HIGH);
+                      delayMicroseconds(10);
+                      digitalWrite(trig, LOW);
+                    
+                      long d = pulseIn(echo, HIGH) * 0.034 / 2;
+                    
+                      if (d < 20) {
+                        digitalWrite(IN1, LOW); digitalWrite(IN2, LOW);
+                        delay(500);
+                        digitalWrite(IN1, LOW); digitalWrite(IN2, HIGH); // Tourne
+                        delay(500);
+                      } else {
+                        digitalWrite(IN1, HIGH); digitalWrite(IN2, LOW);
+                      }
+                    }
+                    
+                        
+                </code></pre>
+            </section>
+            <section>
+                <h3>
+                    Erreurs fréquentes :
+                </h3>
+                <p><b>
+                    Robot ne bouge pas : vérifier câblage L298N, alimentation moteur
+                </b>
+                    </p>
+            </section>
+        </article>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 @WilliamRohan. Tous droits réservés.</p>
+    </footer>
+</body>
+</html>

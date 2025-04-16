@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Tutoriels - Site Educatif Arduino</title>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Débuter sur Arduino</h1>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Accueil</a></li>
+                    <li><a href="tutoriel.html">Tutoriels</a></li>
+                    <li><a href="projet.html">Projets</a></li>
+                    <li><a href="erreurs.html">Erreurs Courantes</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="tutoriel">
+            <h2>1. Allumer une LED avec un bouton</h2>
+            <p>Dans ce tutoriel, nous allons apprendre à allumer une LED en 
+                appuyant sur un bouton.
+            </p>
+            <img src="">
+            <h3>Code Arduino:</h3>
+            <pre><code>
+                const int pinLED = 9;
+                const int pinBouton = 7;
+
+                void setup(){
+                    pinMode(pinLED, OUTPUT):
+                    pinMode(pinBouton, INPUT_PULLUP);
+                }
+
+                void loop(){
+
+                    int etatBouton = digitalRead(pinBouton);
+                    if (etatBouton == LOW) {
+                        digitalWrite(pinLED, HIGH);
+
+                    } else {
+                        digitalWrite(pinLED, LOW);
+                    }
+                }
+            </code></pre>
+        </section>
+
+        <section class="tutoriel">
+            <h2>2. Faire clignoter une LED automatiquement</h2>
+            <p>Un projet simple pour faire clignoter une LED à un intervalle régulier.
+            </p>
+            <img src="">
+            <h3>Code Arduino:</h3>
+            <pre><code>
+                const int pinLED = 13;
+
+                void setup(){
+                    pinMode(pinLED, HIGH):
+                }
+
+                void loop(){
+
+                    digitalWrite(pinLED, HIGH);
+                    delay(500);
+                    digitalWrite(pinLED, LOW);
+                    delay(500);
+                }
+            </code></pre>
+        </section>
+        
+    </main>
+   
+
+    <footer>
+        <p>&copy; 2025 @WilliamRohan. Tous droits réservés.</p>
+    </footer>
+</body>
+</html>
