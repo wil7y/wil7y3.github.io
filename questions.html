@@ -14,7 +14,7 @@
                 <li><a href="index.html">Accueil</a></li>
                 <li><a href="tutoriel.html">Tutoriels</a></li>
                 <li><a href="projet.html">Projets</a></li>
-                <li><a href="erreurs.html">Erreurs Courantes</a></li>
+                <li><a href="erreurs.html">Erreurs </a></li>
                 <li><a href="questions.html">Q&R</a></li>
             </ul>
             <div class="menu-toggle" id="menu-toggle">
@@ -26,15 +26,29 @@
     </header>
 
 <main>
-  <h2>Questions & Réponses</h2>
-  <div class="qa-section" id="qa-section"></div>
-  <div class="question-form">
-    <h3>Posez une question</h3>
-    <textarea id="question-input" placeholder="Votre question..." required></textarea>
-    <button id="ask-question">Envoyer</button>
-  </div>
+    <div class="question-reponse">
+        <div>
+            <h1> MAJ </h1><br>
+            <h2>Vous pouvez posez vos questions ici , nous vous repondrons :)</h2>
+        </div>
+        <div class="bulle-question">
+          <div class="question-text">Question posée ici</div>
+        </div>
+        <div class="bulle-reponse">
+          <div class="reponse-text">Réponse ici</div>
+        </div>
+    </div>
+    
+    <h3>Posez une question :</h3>
+    <input type="text" id="question-input" placeholder="Votre question" />
+    <button onclick="poserQuestion()">Envoyer</button>
 </main>
+<footer>
+        
+    <p>&copy; 2025 @WilliamRohan. Tous droits réservés.</p>
+</footer>
 
 <script src="questions.js"></script>
+<script src="script.js"></script>
 </body>
 </html>

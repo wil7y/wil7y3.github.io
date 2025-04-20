@@ -14,7 +14,7 @@
                 <li><a href="index.html">Accueil</a></li>
                 <li><a href="tutoriel.html">Tutoriels</a></li>
                 <li><a href="projet.html">Projets</a></li>
-                <li><a href="erreurs.html">Erreurs Courantes</a></li>
+                <li><a href="erreurs.html">Erreurs</a></li>
                 <li><a href="questions.html">Q&R</a></li>
             </ul>
             <div class="menu-toggle" id="menu-toggle">
@@ -461,8 +461,8 @@ void loop() {
 #include &lt;SPI.h&gt;
 #include &lt;MFRC522.h&gt;
 
-#define &lt;RST_PIN 9&gt;
-#define &lt;SS_PIN 10&gt;
+#define RST_PIN 9;
+#define SS_PIN 10;
 MFRC522 mfrc522(SS_PIN, RST_PIN);
 
 void setup() {
@@ -780,5 +780,6 @@ void loop() {
     <footer>
         <p>&copy; 2025 @WilliamRohan. Tous droits réservés.</p>
     </footer>
+    <script src="script.js"></script>
 </body>
 </html>
