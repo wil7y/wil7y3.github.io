@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Questions & Réponses</title>
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="logo">ArduinoLearn</div>
+            <ul class="nav-links">
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="tutoriel.html">Tutoriels</a></li>
+                <li><a href="projet.html">Projets</a></li>
+                <li><a href="erreurs.html">Erreurs Courantes</a></li>
+                <li><a href="questions.html">Q&R</a></li>
+            </ul>
+            <div class="menu-toggle" id="menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+<main>
+  <h2>Questions & Réponses</h2>
+  <div class="qa-section" id="qa-section"></div>
+  <div class="question-form">
+    <h3>Posez une question</h3>
+    <textarea id="question-input" placeholder="Votre question..." required></textarea>
+    <button id="ask-question">Envoyer</button>
+  </div>
+</main>
+
+<script src="questions.js"></script>
+</body>
+</html>

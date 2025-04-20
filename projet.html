@@ -1,37 +1,28 @@
 <!DOCTYPE html>
 <html lang="fr">
-<!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-WBLT89XN');</script>
-<!-- End Google Tag Manager -->
-
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
-    <title>Projets - Site Educatif Arduino </title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="styles.css">
+<title>Projets - Site Educatif Arduino</title>
 </head>
 <body>
-<!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WBLT89XN"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
     <header>
-        <div class="container">
-            <h1>Projets Arduino</h1>
-            <nav>
-                <ul>
-                    <li><a href="index.html">Accueil</a></li>
-                    <li><a href="tutoriel.html">Tutoriels</a></li>
-                    <li><a href="projet.html">Projets</a></li>
-                    <li><a href="erreurs.html">Erreurs Courantes</a></li>
-                </ul>
-            </nav>
-        </div>
+        <nav class="navbar">
+            <div class="logo">ArduinoLearn</div>
+            <ul class="nav-links">
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="tutoriel.html">Tutoriels</a></li>
+                <li><a href="projet.html">Projets</a></li>
+                <li><a href="erreurs.html">Erreurs Courantes</a></li>
+                <li><a href="questions.html">Q&R</a></li>
+            </ul>
+            <div class="menu-toggle" id="menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
     </header>
     
     <main>
@@ -61,34 +52,40 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
             <section>
                 <h3>Code</h3>
-                <pre><code>
-                        #include <DHT.h>
-                        #include <Wire.h>
-                        #include <LiquidCrystal_I2C.h>
-                            
-                        #define DHTPIN 2
-                        #define DHTTYPE DHT11
-                        
-                        DHT dht(DHTPIN, DHTTYPE);
-                        LiquidCrystal_I2C lcd(0x27, 16, 2);
-                        
-                        void setup() {
-                          lcd.begin();
-                          lcd.backlight();
-                          dht.begin();
-                        }
-                        
-                        void loop() {
-                          float t = dht.readTemperature();
-                          float h = dht.readHumidity();
-                          lcd.setCursor(0,0);
-                          lcd.print("Temp: " + String(t) + " C");
-                          lcd.setCursor(0,1);
-                          lcd.print("Hum: " + String(h) + " %");
-                          delay(2000);
-                        }
-                        
-                </code></pre>
+                <div class="code-container">
+                    <pre id="arduino-code">
+#include &lt;DHT.h&gt;
+#include &lt;Wire.h&gt;
+#include &lt;LiquidCrystal_I2C.h&gt;
+    
+#define DHTPIN 2
+#define DHTTYPE DHT11
+
+DHT dht(DHTPIN, DHTTYPE);
+LiquidCrystal_I2C lcd(0x27, 16, 2);
+
+void setup() {
+    lcd.begin();
+    lcd.backlight();
+    dht.begin();
+}
+
+void loop() {
+    float t = dht.readTemperature();
+    float h = dht.readHumidity();
+    lcd.setCursor(0,0);
+    lcd.print("Temp: " + String(t) + " C");
+    lcd.setCursor(0,1);
+    lcd.print("Hum: " + String(h) + " %");
+    delay(2000);
+}
+    
+                     
+                    </pre>
+
+                </div>
+                
+            <!--button id="copy-btn"> Copier le code </button>-->
             </section>
             <section>
                 <h3>
@@ -128,25 +125,28 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
             <section>
                 <h3>Code</h3>
-                <pre><code>
-                    int pirPin = 2;
-                    int buzzer = 3;
+                <div class="code-container">
+                    <pre id="arduino-code">
+int pirPin = 2;
+int buzzer = 3;
 
-                    void setup() {
-                        pinMode(pirPin, INPUT);
-                        pinMode(buzzer, OUTPUT);
-                    }
+void setup() {
+    pinMode(pirPin, INPUT);
+    pinMode(buzzer, OUTPUT);
+}
 
-                    void loop() {
-                        if (digitalRead(pirPin) == HIGH) {
-                            digitalWrite(buzzer, HIGH);
-                            delay(1000);
-                        } else {
-                            digitalWrite(buzzer, LOW);
-                        }
-                    }
+void loop() {
+    if (digitalRead(pirPin) == HIGH) {
+        digitalWrite(buzzer, HIGH);
+        delay(1000);
+    } else {
+        digitalWrite(buzzer, LOW);
+    }
+}
 
-                </code></pre>
+                    </pre>
+                </div>
+                
             </section>
             <section>
                 <h3>
@@ -184,39 +184,40 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
             <section>
                 <h3>Code</h3>
-                <pre><code>
-                    #include <Servo.h>
-                        Servo servo;
-                        
-                        const int trigPin = 9;
-                        const int echoPin = 10;
-                        
-                        void setup() {
-                          servo.attach(3);
-                          Serial.begin(9600);
-                          pinMode(trigPin, OUTPUT);
-                          pinMode(echoPin, INPUT);
-                        }
-                        
-                        void loop() {
-                          for (int pos = 0; pos <= 180; pos += 15) {
-                            servo.write(pos);
-                            delay(300);
-                            long duration, distance;
-                            digitalWrite(trigPin, LOW);
-                            delayMicroseconds(2);
-                            digitalWrite(trigPin, HIGH);
-                            delayMicroseconds(10);
-                            digitalWrite(trigPin, LOW);
-                            duration = pulseIn(echoPin, HIGH);
-                            distance = duration * 0.034 / 2;
-                            Serial.print("Angle: "); Serial.print(pos);
-                            Serial.print(" | Distance: "); Serial.println(distance);
-                          }
-                        }
-                        
+                <div class="code-container">
+                    <pre id="arduino-code">
+#include &lt;Servo.h&gt;
+Servo servo;
 
-                </code></pre>
+const int trigPin = 9;
+const int echoPin = 10;
+
+void setup() {
+servo.attach(3);
+Serial.begin(9600);
+pinMode(trigPin, OUTPUT);
+pinMode(echoPin, INPUT);
+}
+
+void loop() {
+for (int pos = 0; pos <= 180; pos += 15) {
+    servo.write(pos);
+    delay(300);
+    long duration, distance;
+    digitalWrite(trigPin, LOW);
+    delayMicroseconds(2);
+    digitalWrite(trigPin, HIGH);
+    delayMicroseconds(10);
+    digitalWrite(trigPin, LOW);
+    duration = pulseIn(echoPin, HIGH);
+    distance = duration * 0.034 / 2;
+    Serial.print("Angle: "); Serial.print(pos);
+    Serial.print(" | Distance: "); Serial.println(distance);
+}
+}
+                        
+                    </pre>
+                </div>
             </section>
             <section>
                 <h3>
@@ -257,32 +258,34 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
             <section>
                 <h3>Code</h3>
-                <pre><code>
-                    char c;
-                    int redPin = 9, greenPin = 10, bluePin = 11;
-                    
-                    void setup() {
-                      Serial.begin(9600);
-                      pinMode(redPin, OUTPUT);
-                      pinMode(greenPin, OUTPUT);
-                      pinMode(bluePin, OUTPUT);
-                    }
-                    
-                    void loop() {
-                      if (Serial.available()) {
-                        c = Serial.read();
-                        if (c == 'r') {
-                          analogWrite(redPin, 255); analogWrite(greenPin, 0); analogWrite(bluePin, 0);
-                        } else if (c == 'g') {
-                          analogWrite(redPin, 0); analogWrite(greenPin, 255); analogWrite(bluePin, 0);
-                        } else if (c == 'b') {
-                          analogWrite(redPin, 0); analogWrite(greenPin, 0); analogWrite(bluePin, 255);
-                        }
-                      }
-                    }
-                    
-                        
-                </code></pre>
+                <div class="code-container">
+                    <pre id="arduino-code">
+char c;
+int redPin = 9, greenPin = 10, bluePin = 11;
+
+void setup() {
+Serial.begin(9600);
+pinMode(redPin, OUTPUT);
+pinMode(greenPin, OUTPUT);
+pinMode(bluePin, OUTPUT);
+}
+
+void loop() {
+if (Serial.available()) {
+    c = Serial.read();
+    if (c == 'r') {
+    analogWrite(redPin, 255); analogWrite(greenPin, 0); analogWrite(bluePin, 0);
+    } else if (c == 'g') {
+    analogWrite(redPin, 0); analogWrite(greenPin, 255); analogWrite(bluePin, 0);
+    } else if (c == 'b') {
+    analogWrite(redPin, 0); analogWrite(greenPin, 0); analogWrite(bluePin, 255);
+    }
+}
+}
+
+    
+                    </pre>
+                </div>
             </section>
             <section>
                 <h3>
@@ -322,34 +325,36 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
             <section>
                 <h3>Code</h3>
-                <pre><code>
-                    #include <LiquidCrystal_I2C.h>
-                        LiquidCrystal_I2C lcd(0x27, 16, 2);
-                        
-                        #define trig 7
-                        #define echo 6
-                        
-                        void setup() {
-                          lcd.begin();
-                          lcd.backlight();
-                          pinMode(trig, OUTPUT);
-                          pinMode(echo, INPUT);
-                        }
-                        
-                        void loop() {
-                          digitalWrite(trig, LOW);
-                          delayMicroseconds(2);
-                          digitalWrite(trig, HIGH);
-                          delayMicroseconds(10);
-                          digitalWrite(trig, LOW);
-                          long duration = pulseIn(echo, HIGH);
-                          float distance = duration * 0.034 / 2;
-                          lcd.setCursor(0,0);
-                          lcd.print("Distance: " + String(distance) + " cm");
-                          delay(1000);
-                        }
-                        
-                </code></pre>
+                <div class="code-container">
+                    <pre id="arduino-code">
+#include &lt;LiquidCrystal_I2C.h&gt;
+LiquidCrystal_I2C lcd(0x27, 16, 2);
+
+#define trig 7
+#define echo 6
+
+void setup() {
+    lcd.begin();
+    lcd.backlight();
+    pinMode(trig, OUTPUT);
+    pinMode(echo, INPUT);
+}
+
+void loop() {
+    digitalWrite(trig, LOW);
+    delayMicroseconds(2);
+    digitalWrite(trig, HIGH);
+    delayMicroseconds(10);
+    digitalWrite(trig, LOW);
+    long duration = pulseIn(echo, HIGH);
+    float distance = duration * 0.034 / 2;
+    lcd.setCursor(0,0);
+    lcd.print("Distance: " + String(distance) + " cm");
+    delay(1000);
+}
+
+                </pre>
+                </div>
             </section>
             <section>
                 <h3>
@@ -387,25 +392,27 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
             <section>
                 <h3>Code</h3>
-                <pre><code>
-                    #include <Servo.h>
-                        Servo servo;
-                        
-                        void setup() {
-                          servo.attach(9);
-                        }
-                        
-                        void loop() {
-                          int ldr1 = analogRead(A0);
-                          int ldr2 = analogRead(A1);
-                          if (ldr1 > ldr2 + 50) servo.write(0);
-                          else if (ldr2 > ldr1 + 50) servo.write(180);
-                          else servo.write(90);
-                          delay(500);
-                        }
-                        
-                        
-                </code></pre>
+                <div class="code-container">
+                    <pre id="arduino-code">
+#include &lt;Servo.h&gt;
+Servo servo;
+
+void setup() {
+    servo.attach(9);
+}
+
+void loop() {
+    int ldr1 = analogRead(A0);
+    int ldr2 = analogRead(A1);
+    if (ldr1 > ldr2 + 50) servo.write(0);
+    else if (ldr2 > ldr1 + 50) servo.write(180);
+    else servo.write(90);
+    delay(500);
+}
+
+    
+                    </pre>
+                </div>
             </section>
             <section>
                 <h3>
@@ -449,38 +456,40 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
             <section>
                 <h3>Code</h3>
-                <pre><code>
-                    #include <SPI.h>
-                        #include <MFRC522.h>
+                <div class="code-container">
+                    <pre id="arduino-code">
+#include &lt;SPI.h&gt;
+#include &lt;MFRC522.h&gt;
+
+#define &lt;RST_PIN 9&gt;
+#define &lt;SS_PIN 10&gt;
+MFRC522 mfrc522(SS_PIN, RST_PIN);
+
+void setup() {
+    SPI.begin();
+    mfrc522.PCD_Init();
+    pinMode(8, OUTPUT); // Relais
+}
+
+void loop() {
+    if (!mfrc522.PICC_IsNewCardPresent()) return;
+    if (!mfrc522.PICC_ReadCardSerial()) return;
+
+    String id = "";
+    for (byte i = 0; i < mfrc522.uid.size; i++) {
+    id += String(mfrc522.uid.uidByte[i], HEX);
+    }
+
+    if (id == "a1b2c3d4") {
+    digitalWrite(8, HIGH);
+    delay(3000);
+    digitalWrite(8, LOW);
+    }
+}
                         
-                        #define RST_PIN 9
-                        #define SS_PIN 10
-                        MFRC522 mfrc522(SS_PIN, RST_PIN);
-                        
-                        void setup() {
-                          SPI.begin();
-                          mfrc522.PCD_Init();
-                          pinMode(8, OUTPUT); // Relais
-                        }
-                        
-                        void loop() {
-                          if (!mfrc522.PICC_IsNewCardPresent()) return;
-                          if (!mfrc522.PICC_ReadCardSerial()) return;
-                        
-                          String id = "";
-                          for (byte i = 0; i < mfrc522.uid.size; i++) {
-                            id += String(mfrc522.uid.uidByte[i], HEX);
-                          }
-                        
-                          if (id == "a1b2c3d4") {
-                            digitalWrite(8, HIGH);
-                            delay(3000);
-                            digitalWrite(8, LOW);
-                          }
-                        }
-                        
-                        
-                </code></pre>
+                            
+                    </pre>
+                </div>
             </section>
             <section>
                 <h3>
@@ -521,29 +530,30 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
             <section>
                 <h3>Code</h3>
-                <pre><code>
-                    void setup() {
-                        pinMode(2, OUTPUT);
-                        pinMode(3, OUTPUT);
-                        pinMode(4, OUTPUT);
-                      }
-                      
-                      void loop() {
-                        digitalWrite(2, HIGH); // Rouge
-                        delay(5000);
-                        digitalWrite(2, LOW);
-                        
-                        digitalWrite(3, HIGH); // Jaune
-                        delay(2000);
-                        digitalWrite(3, LOW);
-                      
-                        digitalWrite(4, HIGH); // Vert
-                        delay(5000);
-                        digitalWrite(4, LOW);
-                      }
-                      
-                        
-                </code></pre>
+                <div class="code-container">
+                    <pre id="arduino-code">
+void setup() {
+    pinMode(2, OUTPUT);
+    pinMode(3, OUTPUT);
+    pinMode(4, OUTPUT);
+}
+
+void loop() {
+    digitalWrite(2, HIGH); // Rouge
+    delay(5000);
+    digitalWrite(2, LOW);
+
+    digitalWrite(3, HIGH); // Jaune
+    delay(2000);
+    digitalWrite(3, LOW);
+
+    digitalWrite(4, HIGH); // Vert
+    delay(5000);
+    digitalWrite(4, LOW);
+}
+                            
+                    </pre>
+                </div>
             </section>
             <section>
                 <h3>
@@ -557,7 +567,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </article>
 
 
-         <!--Projet8-->
+         <!--Projet9-->
          <article class="projet-article"><br>
             <h1><b>Afficheur matriciel message défilant</b></h1>
             <p class="intro">Affiche un texte défilant avec matrice 8x8. 
@@ -584,29 +594,31 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
             <section>
                 <h3>Code</h3>
-                <pre><code>
-                    #include <MD_Parola.h>
-                        #include <MD_MAX72xx.h>
-                        #include <SPI.h>
+                <div class="code-container">
+                    <pre id="arduino-code">
+#include &lt;MD_Parola.h&gt;
+#include &lt;MD_MAX72xx.h&gt;
+#include &lt;SPI.h&gt;
+
+#define HARDWARE_TYPE MD_MAX72XX::FC16_HW
+#define MAX_DEVICES 4
+#define CS_PIN 10
+
+MD_Parola afficheur = MD_Parola(HARDWARE_TYPE, CS_PIN, MAX_DEVICES);
+
+void setup() {
+    afficheur.begin();
+    afficheur.setSpeed(50);
+    afficheur.displayText("Bonjour !", PA_CENTER, 50, 1000, PA_SCROLL_LEFT, PA_SCROLL_LEFT);
+}
+
+void loop() {
+    afficheur.displayAnimate();
+}
+
                         
-                        #define HARDWARE_TYPE MD_MAX72XX::FC16_HW
-                        #define MAX_DEVICES 4
-                        #define CS_PIN 10
-                        
-                        MD_Parola afficheur = MD_Parola(HARDWARE_TYPE, CS_PIN, MAX_DEVICES);
-                        
-                        void setup() {
-                          afficheur.begin();
-                          afficheur.setSpeed(50);
-                          afficheur.displayText("Bonjour !", PA_CENTER, 50, 1000, PA_SCROLL_LEFT, PA_SCROLL_LEFT);
-                        }
-                        
-                        void loop() {
-                          afficheur.displayAnimate();
-                        }
-                        
-                        
-                </code></pre>
+                    </pre>
+                </div>
             </section>
             <section>
                 <h3>
@@ -620,7 +632,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </article>
 
 
-         <!--Projet9-->
+         <!--Projet10-->
          <article class="projet-article"><br>
             <h1><b>Commande vocale (module Elechouse V3)</b></h1>
             <p class="intro">Allume une LED avec commande vocale. 
@@ -647,36 +659,38 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
             <section>
                 <h3>Code</h3>
-                <pre><code>
+                <div class="code-container">
+                    <pre id="arduino-code">
                     
-                #include <SoftwareSerial.h>
-                #include "VoiceRecognitionV3.h"
-                
-                SoftwareSerial mySerial(2, 3);
-                VR myVR(mySerial);
-                
-                uint8_t records[7];
-                uint8_t buf[64];
-                
-                #define LED 13
-                
-                void setup() {
-                mySerial.begin(9600);
-                Serial.begin(9600);
-                myVR.begin();
-                myVR.load((uint8_t)0, records, 7);
-                pinMode(LED, OUTPUT);
-                }
-                
-                void loop() {
-                if (myVR.recognize(buf, 50) > 0) {
-                    if (buf[1] == 0x01) digitalWrite(LED, HIGH);
-                    else if (buf[1] == 0x02) digitalWrite(LED, LOW);
-                }
-                }
-                
-                        
-                </code></pre>
+#include &lt;SoftwareSerial.h&gt;
+#include &lt;VoiceRecognitionV3.h&gt;
+
+SoftwareSerial mySerial(2, 3);
+VR myVR(mySerial);
+
+uint8_t records[7];
+uint8_t buf[64];
+
+#define LED 13
+
+void setup() {
+mySerial.begin(9600);
+Serial.begin(9600);
+myVR.begin();
+myVR.load((uint8_t)0, records, 7);
+pinMode(LED, OUTPUT);
+}
+
+void loop() {
+if (myVR.recognize(buf, 50) > 0) {
+    if (buf[1] == 0x01) digitalWrite(LED, HIGH);
+    else if (buf[1] == 0x02) digitalWrite(LED, LOW);
+}
+}
+
+                                
+                    </pre>
+                </div>
             </section>
             <section>
                 <h3>
@@ -690,7 +704,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </article>
 
 
-         <!--Projet10-->
+         <!--Projet11-->
          <article class="projet-article"><br>
             <h1><b>Robot éviteur d’obstacles</b></h1>
             <p class="intro">Le robot évite automatiquement les objets. 
@@ -707,7 +721,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 </ul>
             </section>
 
-            <section>
+            <section id="obstacles">
                 <h3>
                     Schéma de câblage
                 </h3>
@@ -716,38 +730,40 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
             <section>
                 <h3>Code</h3>
-                <pre><code>
-                    #define trig 9
-                    #define echo 8
-                    #define IN1 5
-                    #define IN2 6
-                    
-                    void setup() {
-                      pinMode(trig, OUTPUT); pinMode(echo, INPUT);
-                      pinMode(IN1, OUTPUT); pinMode(IN2, OUTPUT);
-                    }
-                    
-                    void loop() {
-                      digitalWrite(trig, LOW);
-                      delayMicroseconds(2);
-                      digitalWrite(trig, HIGH);
-                      delayMicroseconds(10);
-                      digitalWrite(trig, LOW);
-                    
-                      long d = pulseIn(echo, HIGH) * 0.034 / 2;
-                    
-                      if (d < 20) {
-                        digitalWrite(IN1, LOW); digitalWrite(IN2, LOW);
-                        delay(500);
-                        digitalWrite(IN1, LOW); digitalWrite(IN2, HIGH); // Tourne
-                        delay(500);
-                      } else {
-                        digitalWrite(IN1, HIGH); digitalWrite(IN2, LOW);
-                      }
-                    }
+               <div class="code-container">
+                <pre id="arduino-code">
+#define trig 9
+#define echo 8
+#define IN1 5
+#define IN2 6
+
+void setup() {
+    pinMode(trig, OUTPUT); pinMode(echo, INPUT);
+    pinMode(IN1, OUTPUT); pinMode(IN2, OUTPUT);
+}
+
+void loop() {
+    digitalWrite(trig, LOW);
+    delayMicroseconds(2);
+    digitalWrite(trig, HIGH);
+    delayMicroseconds(10);
+    digitalWrite(trig, LOW);
+
+    long d = pulseIn(echo, HIGH) * 0.034 / 2;
+
+    if (d < 20) {
+    digitalWrite(IN1, LOW); digitalWrite(IN2, LOW);
+    delay(500);
+    digitalWrite(IN1, LOW); digitalWrite(IN2, HIGH); // Tourne
+    delay(500);
+    } else {
+    digitalWrite(IN1, HIGH); digitalWrite(IN2, LOW);
+    }
+}
                     
                         
-                </code></pre>
+                </pre>
+               </div>
             </section>
             <section>
                 <h3>
