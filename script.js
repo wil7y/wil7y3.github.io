@@ -1,4 +1,4 @@
-const { response } = require("express");
+
 
 // Sélectionner toutes les sections à animer
 const sections = document.querySelectorAll('section');
@@ -23,7 +23,7 @@ menuToggle.addEventListener('click', () => {
   menuToggle.classList.toggle('open');
 });
 
-fetch('https://wil7y3-github-io.onrender.com', {
+fetch('https://wil7y3-github-io.onrender.com/stats', {
   method: 'POST',
   headers: {
     'Content-Type': 'application/json'
@@ -40,6 +40,9 @@ fetch('https://wil7y3-github-io.onrender.com', {
   console.error('Erreur d envoi des stats:', error);
 });
 
+
+
+
 const PASSWORD = "1ko14ochampion"; // <- Change ce mot de passe !
 
 function checkPassword() {
@@ -55,7 +58,7 @@ function checkPassword() {
 }
 
 function loadStats() {
-  fetch('https://wil7y3-github-io.onrender.com')
+  fetch('https://wil7y3-github-io.onrender.com/stats')
     .then(res => res.json())
     .then(data => {
       const tbody = document.querySelector('#statsTable tbody');
