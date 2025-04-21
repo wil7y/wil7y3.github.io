@@ -1,41 +1,57 @@
-const express = require('express');
-const cors = require('cors');
-const fs = require('fs');
+const express = require("express");
+const fs = require("fs");
+const cors = require("cors");
+const { v4: uuidv4 } = require("uuid");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-const filePath = './commentaires.json';
+const FILE = "commentaires.json";
 
 app.use(cors());
 app.use(express.json());
 
-if (!fs.existsSync(filePath)) {
-    fs.writeFileSync(filePath, JSON.stringify([]));
+// Lire les commentaires
+function lireCommentaires() {
+  if (!fs.existsSync(FILE)) return [];
+  const data = fs.readFileSync(FILE);
+  return JSON.parse(data);
 }
 
-app.get('/commentaires', (req, res) => {
-    const data = fs.readFileSync(filePath);
-    res.json(JSON.parse(data));
+// Sauvegarder les commentaires
+function sauvegarderCommentaires(commentaires) {
+  fs.writeFileSync(FILE, JSON.stringify(commentaires, null, 2));
+}
+
+// Obtenir tous les commentaires
+app.get("/commentaires", (req, res) => {
+  const commentaires = lireCommentaires();
+  res.json(commentaires);
 });
 
-app.post('/commentaires', (req, res) => {
-    const {pseudo, message} = req.body;
-    if (!pseudo || !message) {
-        return res.status(400).json({ error: 'Pseudo et message requis'});
-    }
+// Ajouter un commentaire ou une réponse
+app.post("/commentaires", (req, res) => {
+  const { pseudo, message, parentId = null } = req.body;
 
-    const commentaires = JSON.parse(fs.readFileSync(filePath));
-    const nouveau = {
-        id: Date.now(),
-        pseudo,
-        message,
-        date: new Date().toISOString()
-    };
-    commentaires.push(nouveau);
-    fs.writeFileSync(filePath, JSON.stringify(commentaires, null, 2));
-    res.status(201).json({ success: true });
+  if (!pseudo || !message) {
+    return res.status(400).json({ erreur: "Pseudo et message requis" });
+  }
+
+  const nouveauCommentaire = {
+    id: uuidv4(),
+    pseudo,
+    message,
+    date: new Date().toISOString(),
+    parentId,
+  };
+
+  const commentaires = lireCommentaires();
+  commentaires.push(nouveauCommentaire);
+  sauvegarderCommentaires(commentaires);
+
+  res.status(201).json(nouveauCommentaire);
 });
 
+// Lancer le serveur
 app.listen(PORT, () => {
-    console.log('Serveur démarré sur le port ${PORT}');
+  console.log(`Serveur backend en écoute sur le port ${PORT}`);
 });

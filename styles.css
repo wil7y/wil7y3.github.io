@@ -535,7 +535,7 @@
   }
 }
 
-form {
+form, .reponse-form {
   max-width: 600px;
   margin: 20px auto;
   background: white;
@@ -568,7 +568,6 @@ button:hover {
 #commentaires {
   max-width: 600px;
   margin: 20px auto;
-  padding: 0;
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -578,25 +577,42 @@ button:hover {
   background-color: #f1f1f1;
   border-radius: 16px;
   padding: 12px 16px;
-  position: relative;
-  max-width: 100%;
   box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  position: relative;
 }
 
-.bulle-commentaire .pseudo {
+.pseudo {
   font-weight: bold;
   margin-bottom: 6px;
-  color: #333;
 }
 
-.bulle-commentaire .texte {
+.texte {
   margin-bottom: 8px;
-  color: #444;
   white-space: pre-wrap;
 }
 
-.bulle-commentaire .date {
+.date {
   font-size: 0.75em;
   color: #777;
   text-align: right;
+}
+
+.reponse-zone {
+  margin-left: 30px;
+  margin-top: 10px;
+}
+
+.btn-repondre {
+  margin-top: 5px;
+  font-size: 0.85em;
+  background-color: #e0e0e0;
+  color: #333;
+  padding: 4px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  border: none;
+}
+
+.btn-repondre:hover {
+  background-color: #d0d0d0;
 }
