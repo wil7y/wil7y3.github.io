@@ -624,12 +624,14 @@ button:hover {
 .bulle-commentaire {
   background-color: var(--comment-color);
   align-self: flex-start;
+  border-radius: 20px 20px 20px 4px;
 }
 
 .bulle-reponse {
   background-color: var(--reply-color);
   margin-left: 24px;
   align-self: flex-start;
+  border-radius: 20px 20px 4px 20px;
 }
 
 .reponse-zone::before {
