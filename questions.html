@@ -25,24 +25,15 @@
         </nav>
     </header>
 
-<main>
-    <div class="question-reponse">
-        <div>
-            <h1> MAJ </h1><br>
-            <h2>Vous pouvez posez vos questions ici , nous vous repondrons :)</h2>
-        </div>
-        <div class="bulle-question">
-          <div class="question-text">Question posée ici</div>
-        </div>
-        <div class="bulle-reponse">
-          <div class="reponse-text">Réponse ici</div>
-        </div>
-    </div>
-    
-    <h3>Posez une question :</h3>
-    <input type="text" id="question-input" placeholder="Votre question" />
-    <button onclick="poserQuestion()">Envoyer</button>
-</main>
+    <h3>Laissez un commentaire</h3>
+    <form id="commentForm">
+        <input type="text" id="pseudo" placeholder="Pseudo" required><br>
+        <textarea id="message" placeholder="Votre message" required></textarea><br>
+        <button type="submit">Envoyer</button>
+    </form>
+
+    <ul id="commentList"></ul>
+
 <footer>
         
     <p>&copy; 2025 @WilliamRohan. Tous droits réservés.</p>
