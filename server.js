@@ -12,6 +12,29 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
+//---ROUTE DE STATS---
+app.post('/stats', (req, res) => {
+    const visiteur = {
+        date: new Date().toDateString(),
+        userAgent: req.headers['user-agent'],
+        ip: req.headers['x-forward-for'] || req.socket.remoteAddress,
+        page: req.body.page || "inconnue"
+    };
+
+    //Lire les stats existantes
+    let stats = [];
+    if (fs.existsSync('stats.json')){
+        stats = JSON.parse(fs.readFileSync('stats.json', 'utf8'));
+    }
+
+    stats.push(visiteur);
+
+    fs.writeFileSync('stats.json', JSON.stringify(stats, null, 2));
+
+    res.status(200).json({ message: 'Stat enregistrée'});
+
+});
+
 // Lire les commentaires
 function lireCommentaires() {
   if (!fs.existsSync(FICHIER)) return [];

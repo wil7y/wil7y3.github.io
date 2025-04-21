@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Questions & Réponses</title>
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="logo">ArduinoLearn</div>
+            <ul class="nav-links">
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="tutoriel.html">Tutoriels</a></li>
+                <li><a href="projet.html">Projets</a></li>
+                <li><a href="erreurs.html">Erreurs </a></li>
+                <li><a href="questions.html">Q&R</a></li>
+                <li><a href="admin.html">Admin</a></li>
+            </ul>
+            <div class="menu-toggle" id="menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+    <div>
+        <h1>MAJ</h1><br><br>
+    </div>
+    <div><h1>MAJ</h1><br></div>
+
+  <div class="login-box" id="loginBox">
+    <h2>Connexion Admin</h2>
+    <input type="password" id="password" placeholder="Mot de passe admin" />
+    <button onclick="checkPassword()">Connexion</button>
+    <p id="loginError" style="color: red;"></p>
+  </div>
+
+  <div class="hidden" id="adminContent">
+    <h1>Statistiques de Visite</h1>
+    <table id="statsTable">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>IP</th>
+          <th>Navigateur</th>
+          <th>Page</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+
+  <footer>
+        
+    <p>&copy; 2025 @WilliamRohan. Tous droits réservés.</p>
+</footer>
+
+
+<script src="script.js"></script>
+</body>
+</html>
