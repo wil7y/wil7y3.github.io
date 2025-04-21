@@ -534,3 +534,69 @@
     transform: translateX(-100%);
   }
 }
+
+form {
+  max-width: 600px;
+  margin: 20px auto;
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+input, textarea, button {
+  display: block;
+  width: 100%;
+  margin-bottom: 12px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1em;
+}
+
+button {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+#commentaires {
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.bulle-commentaire {
+  background-color: #f1f1f1;
+  border-radius: 16px;
+  padding: 12px 16px;
+  position: relative;
+  max-width: 100%;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.bulle-commentaire .pseudo {
+  font-weight: bold;
+  margin-bottom: 6px;
+  color: #333;
+}
+
+.bulle-commentaire .texte {
+  margin-bottom: 8px;
+  color: #444;
+  white-space: pre-wrap;
+}
+
+.bulle-commentaire .date {
+  font-size: 0.75em;
+  color: #777;
+  text-align: right;
+}
