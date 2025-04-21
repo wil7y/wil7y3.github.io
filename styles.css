@@ -440,6 +440,17 @@
     padding: 6px 10px;
     font-size: 0.8em;
   }
+
+  form, .reponse-form, #commentaires {
+    padding: 10px;
+    width: 100%;
+    margin: 10px auto;
+  }
+
+  .bulle-commentaire, .bulle-reponse {
+    font-size: 0.95em;
+    padding: 10px 12px;
+  }
 }
 
 
@@ -538,14 +549,13 @@
 form, .reponse-form {
   max-width: 600px;
   margin: 20px auto;
-  background: white;
-  padding: 20px;
+  background: #ffffff;
+  padding: 16px;
   border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
 }
 
 input, textarea, button {
-  display: block;
   width: 100%;
   margin-bottom: 12px;
   padding: 10px;
@@ -555,30 +565,44 @@ input, textarea, button {
 }
 
 button {
-  background-color: #4CAF50;
+  background-color: #2e7d32;
   color: white;
+  font-weight: bold;
   border: none;
   cursor: pointer;
 }
 
 button:hover {
-  background-color: #45a049;
+  background-color: #1b5e20;
 }
 
 #commentaires {
   max-width: 600px;
-  margin: 20px auto;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 16px;
 }
 
 .bulle-commentaire {
-  background-color: #f1f1f1;
-  border-radius: 16px;
+  background-color: #dcedc8;
+  color: #2e7d32;
+  border-radius: 18px;
   padding: 12px 16px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
   position: relative;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  max-width: 100%;
+}
+
+.bulle-reponse {
+  background-color: #bbdefb;
+  color: #0d47a1;
+  margin-left: 25px;
+  border-radius: 18px;
+  padding: 12px 16px;
+  position: relative;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  max-width: 100%;
 }
 
 .pseudo {
@@ -587,32 +611,32 @@ button:hover {
 }
 
 .texte {
-  margin-bottom: 8px;
   white-space: pre-wrap;
+  margin-bottom: 8px;
 }
 
 .date {
   font-size: 0.75em;
-  color: #777;
+  color: #555;
   text-align: right;
 }
 
 .reponse-zone {
-  margin-left: 30px;
+  margin-left: 20px;
   margin-top: 10px;
 }
 
 .btn-repondre {
-  margin-top: 5px;
   font-size: 0.85em;
-  background-color: #e0e0e0;
+  background-color: transparent;
   color: #333;
-  padding: 4px 10px;
-  border-radius: 6px;
-  cursor: pointer;
   border: none;
+  cursor: pointer;
+  margin-top: 4px;
+  padding: 4px 8px;
 }
 
 .btn-repondre:hover {
-  background-color: #d0d0d0;
+  text-decoration: underline;
 }
+
